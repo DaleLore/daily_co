@@ -11,15 +11,22 @@
 
     </head>
     <body>
-        <div>
-          <!-- Participant Info will go here -->
+        <div class="participants">
+          <button 
+                id="raise_hand"
+                onclick="raiseYourHand()">
+                🤚🏼
+            </button>
+          <div id="toggleHand">Need to ask a question?</div>
         </div>
         
-        <div>
-            
+        <div class="video_frame">
             <script>
               callFrame = window.DailyIframe.createFrame();
-              callFrame.join({ url: 'https://dalelore.daily.co/Raise-your-hand' })
+              callFrame.join({ 
+                url: 'https://dalelore.daily.co/Raise-your-hand',
+                showLeaveButton: true
+              })
             </script>
         </div>
 
