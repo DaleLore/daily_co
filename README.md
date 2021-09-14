@@ -9,11 +9,29 @@ The Daily JavaScript library gives you several options for adding video calls to
 
 Let's go step by step over what you'll need and why.
 
-#### HTML
+#### Set up HTML
 Create a basic HTML page
 In the directory(folder) you're working in, create a new file `index.html`
 
-Option 1: In terminal
-`touch index.html'
+Set up the basic HTML DOCTYPE structure (https://www.w3schools.com/html/)
+
+And you can change the title in the head and add more information, but with that basic HTML structure, you have your html page set up!
+
+Now continue to creating a Javascript file
+
+#### Set up JavaScript
+Create a basic JavaScript file
+In the directory(folder) you're working in, create a new file `script.js`
+
+And you're done! We'll be adding more here later because this is where all our code will go.
+
+Now link up these two new files!
+
+
+#### Connect them
+From the <head> in your HTML, you'll need to connect your Javascript with a tag:
+`<script type='text/javascript' src='./script.js'></script>`
+
+
 
 ### More Readings
