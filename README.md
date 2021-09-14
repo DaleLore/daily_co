@@ -10,6 +10,10 @@ The Daily JavaScript library gives you several options for adding video calls to
 Let's go step by step over what you'll need and why.
 
 #### HTML
+Create a basic HTML page
+In the directory(folder) you're working in, create a new file `index.html`
 
+Option 1: In terminal
+`touch index.html'
 
 ### More Readings
