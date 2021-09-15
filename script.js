@@ -1,3 +1,37 @@
+// Local_data stores the session_id and hand state of the local user.
+      let local_data = {
+          session_id: "",
+          handState: false,
+      }
+      
+async function run() {
+  let room = { url: "https://dalelore.daily.co/Raise-your-hand" };
+
+    callFrame = window.DailyIframe.createFrame(document.getElementById("iframe"), {
+    showLeaveButton: true
+  });
+
+  await callFrame.join({ url: room.url });
+  
+}
+
+function raiseYourHand() {
+    console.log('Hello');
+    var x = document.getElementById("toggleHand");
+    if (x.innerHTML === "Need to ask a question?") {
+      x.innerHTML = "Your Hand is Raised!";
+    } else {
+      x.innerHTML = "Need to ask a question?";
+    }
+    var y = document.getElementById("participant_list");
+    if (x.innerHTML === "Your Hand is Raised!") {
+        y.innerHTML = "${participant.user_name}";
+      } else {
+        y.innerHTML = " ";
+      }
+  }
+
+// JS AddEventListeners -> replaced with
 // document.addEventListener('DOMContentLoaded', init, false);
 // function init(){
 //   function message () {
@@ -21,53 +55,3 @@
 //     callFrame.join({ url: 'https://dalelore.daily.co/Raise-your-hand' });
 //   }
 // };
-async function run() {
-  let room = { url: "https://dalelore.daily.co/Raise-your-hand" };
-
-    callFrame = window.DailyIframe.createFrame(document.getElementById("iframe"), {
-    showLeaveButton: true
-  });
-
-  // callFrame
-  //   .on("joined-meeting", joinedMeeting)
-  //   .on("left-meeting", leftMeeting)
-  //   .on("participant-joined", participantJoined)
-  //   .on("participant-left", updateParticipants)
-  //   .on("app-message", messageReceived);
-
-  // join the room
-  await callFrame.join({ url: room.url });
-}
-
-// function run() {
-
-//   console.log("Hello")
-
-//   let room = { url: "https://popschools.daily.co/qOrbXQ3zJZC7o7aH8ycI" };
-//   window.callFrame = window.DailyIframe.createFrame();
-//   window.callFrame = DailyIframe.wrap(document.getElementById("call-frame"), {
-//     showLeaveButton: true
-//   });
-// }
-
-
-// participants({
-//     console.log(local)
-//     console.log(local.user_id
-// })
-
-// function raiseYourHand() {
-//     console.log('Hello');
-//     var x = document.getElementById("toggleHand");
-//     if (x.innerHTML === "Need to ask a question?") {
-//       x.innerHTML = "Your Hand is Raised!";
-//     } else {
-//       x.innerHTML = "Need to ask a question?";
-//     }
-//     var y = document.getElementById("participant_list");
-//     if (x.innerHTML === "Your Hand is Raised!") {
-//         y.innerHTML = "You";
-//       } else {
-//         y.innerHTML = " ";
-//       }
-//   }

@@ -135,31 +135,7 @@ We need two variables:
 
 ### More Readings
 
-
-        <div class="participants">
-            <button 
-                  id="raise_hand"
                   alt="Button of a Hand"
-                  onclick="raiseYourHand()">
-                  🤚🏼</button>
-            <div id="toggleHand">Need to ask a question?</div>
-            
-            <h1>Raised Hands</h1>
-            <ul 
-              class="participant_list"
-              id="participant_list"></ul>
-          </div>
-          
-          <div class="video_frame">
-              <script>
-                callFrame = window.DailyIframe.createFrame({
-                  showLeaveButton: true
-                });
-               
-                callFrame.join({ 
-                  url: 'https://dalelore.daily.co/Raise-your-hand',
-                })
-  
-              </script>
-          </div>
-  
+                  class="button is-primary hidden raise-hand-button"
+                  onclick="raiseYourHand()"
+
