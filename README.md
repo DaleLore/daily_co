@@ -55,7 +55,7 @@ We'll need:
     This is so partipicants knows who are on the call and can see your hand raised 
 
 #### Add my elements: The Frame
-If you've checked Daily's docs, there's a lot there. And you're probably come across the embed Daily Prebuilt code (https://docs.daily.co/prebuilt)
+This option is a combo of HTML/JS so they are definitely different ways of doing this, but if you've checked Daily's docs, there's a lot there. And you're probably come across the embed Daily Prebuilt code (https://docs.daily.co/prebuilt)
 
 ```
 <html>
@@ -113,6 +113,53 @@ It should end up like this:
 If you click on it now, nothing's going to happen because we need to give it some JavaScript logic, but that'll come! Continue to participant list.
 
 #### Add my elements: The List
+The list will be literally an unordered list so in the HTML body, preferrably within the `<div>` we added the button so they can all be together, create an unordered list: https://www.w3schools.com/tags/tag_ul.asp
+
+`<ul class="participant_list"></ul>`
+
+I gave it a class so we can do CSS on it later. Right now, it's just pure HTML 😎
+
+### Add my JS Logic
+This is where we start connecting JS logic to our HTML. All of our elements: the frame, the button, the list, are on our page, but they don't know that other elements exist.
+
+Similar to what we did with connecting the daily-js library beforehand, we're going to connect all the elements with JS.
+
+Starting with connecting our participant lists to your arrival .
+
+#### JS: Participant list <-> You
+
+
+We need two variables:
+(1) localParticipant
 
 
 ### More Readings
+
+
+        <div class="participants">
+            <button 
+                  id="raise_hand"
+                  alt="Button of a Hand"
+                  onclick="raiseYourHand()">
+                  🤚🏼</button>
+            <div id="toggleHand">Need to ask a question?</div>
+            
+            <h1>Raised Hands</h1>
+            <ul 
+              class="participant_list"
+              id="participant_list"></ul>
+          </div>
+          
+          <div class="video_frame">
+              <script>
+                callFrame = window.DailyIframe.createFrame({
+                  showLeaveButton: true
+                });
+               
+                callFrame.join({ 
+                  url: 'https://dalelore.daily.co/Raise-your-hand',
+                })
+  
+              </script>
+          </div>
+  
