@@ -3,7 +3,7 @@
           session_id: "",
           handState: false,
       }
-      
+
 async function run() {
   let room = { url: "https://dalelore.daily.co/Raise-your-hand" };
 
@@ -24,8 +24,10 @@ function raiseYourHand() {
       x.innerHTML = "Need to ask a question?";
     }
     var y = document.getElementById("participant_list");
+    let username = callFrame.participants().local.user_name
+    
     if (x.innerHTML === "Your Hand is Raised!") {
-        y.innerHTML = "${participant.user_name}";
+        y.innerHTML = username;
       } else {
         y.innerHTML = " ";
       }

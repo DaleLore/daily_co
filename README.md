@@ -123,19 +123,3 @@ I gave it a class so we can do CSS on it later. Right now, it's just pure HTML ð
 This is where we start connecting JS logic to our HTML. All of our elements: the frame, the button, the list, are on our page, but they don't know that other elements exist.
 
 Similar to what we did with connecting the daily-js library beforehand, we're going to connect all the elements with JS.
-
-Starting with connecting our participant lists to your arrival .
-
-#### JS: Participant list <-> You
-
-
-We need two variables:
-(1) localParticipant
-
-
-### More Readings
-
-                  alt="Button of a Hand"
-                  class="button is-primary hidden raise-hand-button"
-                  onclick="raiseYourHand()"
-
