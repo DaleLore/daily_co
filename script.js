@@ -7,12 +7,13 @@ async function run() {
 
 
   await callFrame.join({ url: room.url });
-  callFrame.on('app-message', (event) => { console.log(`a hand was raised and it says ${JSON.stringify(event)}`)})
+  
   callFrame.on('app-message', (event) => updateHandState(event) )
 
 }
 
 let raisingHand;
+let currentList = [];
 
 /**
        *  Toggles the participant's hand status, and sends a message alerting other participants to the change
@@ -33,12 +34,12 @@ let raisingHand;
         update = {
           status: raisingHand,
           username: callFrame.participants().local.user_name,
+          user_id: callFrame.participants().local.user_id
         };
-        let message = callFrame.sendAppMessage(update, "*");
-      //   console.log(message)
-      // console.log(typeof update); 
-      // console.log(typeof message); 
-
+        callFrame.sendAppMessage(update, "*");
+        // console.log(message)
+        // console.log(typeof update); 
+        // console.log(typeof message); 
         // callFrame.on('app-message', (event) => { console.log("this hand was raised in toggle")})
       }
 
@@ -48,42 +49,17 @@ let raisingHand;
         console.log(message.data.username)
         console.log(message.data)
 
-        let currentList = document.getElementById("participant_list");
-        let participant = message.data.username
-        let toggleHand = document.getElementById("toggleHand")
+        let currentListHTML = document.getElementById("participant_list");
+        let currentList = callFrame.participants();
+
+        let participant = `<li id="${message.data.user_id}">
+                            <h5>${message.data.username}</h5>
+                          </li>`;
 
         if (message.data.status == true){
-          currentList.innerHTML = message.data.username;
-        } else {
-          currentList.innerHTML = "";
-
+          console.log("hand is raised")
+        } else if (message.data.status === false){
+          console.log("hand is lowered")
         }
 
       }
-
-  
-
-// JS AddEventListeners -> replaced with
-// document.addEventListener('DOMContentLoaded', init, false);
-// function init(){
-//   function message () {
-//     alert("Hello!");
-//   }
-//   var button = document.getElementById('join_call');
-//   button.addEventListener("click", myFunction);
-
-//   function myFunction() {
-//     console.log("Hello World!");
-//     callFrame = window.DailyIframe.createFrame({
-//       showLeaveButton: true,
-//       iframeStyle: {
-//         position: 'relative',
-//         top: 50,
-//         right: 1500,
-//         width: '90%',
-//         height: '100%',
-//       },
-//     });
-//     callFrame.join({ url: 'https://dalelore.daily.co/Raise-your-hand' });
-//   }
-// };
