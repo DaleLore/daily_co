@@ -1,9 +1,3 @@
-let localParticipant = {
-  handState: {},
-  session_id: "",
-  username: ""
-}
-
 callFrame = window.DailyIframe.createFrame(document.getElementById("iframe"), {
   showLeaveButton: true
 });
@@ -11,93 +5,60 @@ callFrame = window.DailyIframe.createFrame(document.getElementById("iframe"), {
 async function run() {
   let room = { url: "https://dalelore.daily.co/Raise-your-hand" };
 
+
   await callFrame.join({ url: room.url });
-  callFrame
-  .on("participant-joined", updateParticipantList)
-  .on("left", leftCall)
-  .on("app-message", updateHandState);
-}
-
-async function updateParticipantList(e){
-  console.log("updated list here")
-  participants = callFrame.participants();
-  console.log(participants)
-  let wrapper = document.getElementById("participant_list");
-  wrapper.innerHTML = "";
-  console.log(e)
-}
-
-function leftCall(){
-  console.log("bye felicia")
-}
-
-function updateHandState(){
-  console.log("raised hands")
-}
-
-
-function raiseYourHand(){
-  console.log("hand raised")
   
-  let updateLocalParticipant = {
-    session_id: callFrame.participants().local.session_id,
-    username: callFrame.participants().local.user_name
-  }
-  console.log(updateLocalParticipant)
-  
-  var x = document.getElementById("toggleHand");
-    if (x.innerHTML === "Need to ask a question?") {
-    console.log('Hello');
-      x.innerHTML = "Your Hand is Raised!";
-      raisedHand = true
-      console.log(raisedHand)
-    } else {
-      x.innerHTML = "Need to ask a question?";
-      raisedHand = false
-      console.log(raisedHand)
-    }
+  callFrame.on('app-message', (event) => updateHandState(event) )
 
-    var y = document.getElementById("raisedHands_list");
-    let username = callFrame.participants().local.user_name
-    
-    if (x.innerHTML === "Your Hand is Raised!") {
-        y.innerHTML = username;
-        callFrame.sendAppMessage(username + "raised their hand");
-      } else {
-        y.innerHTML = " ";
+}
+
+let raisingHand;
+
+/**
+       *  Toggles the participant's hand status, and sends a message alerting other participants to the change
+       *
+       */
+      async function toggleHand(e) {
+        if (!raisingHand) {
+          raisingHand = true;
+          // Change the user's display
+          document.getElementById("toggleHand").innerHTML = "Your Hand is Raised!";
+
+        } else {
+          raisingHand = false;
+          document.getElementById("toggleHand").innerHTML = "Need to ask a question?";
+
+        }
+        // Send a message to update all users on the change
+        update = {
+          status: raisingHand,
+          username: callFrame.participants().local.user_name
+        };
+        let message = callFrame.sendAppMessage(update, "*");
+        console.log(message)
+      console.log(typeof update); 
+      console.log(typeof message); 
+
+        // callFrame.on('app-message', (event) => { console.log("this hand was raised in toggle")})
       }
-}
 
 
+      async function updateHandState(message) {
+        console.log("triggered")
+        console.log(message.data.username)
 
-// function raiseYourHand() {
-//   let username = callFrame.participants().local.user_name
+        let currentList = document.getElementById("participant_list");
+        let participant = message.data.username
+        let toggleHand = document.getElementById("toggleHand")
 
-//     var x = document.getElementById("toggleHand");
-//     if (x.innerHTML === "Need to ask a question?") {
-//     console.log('Hello');
-//       x.innerHTML = "Your Hand is Raised!";
-//       raisedHand = true
-//       console.log(raisedHand)
-//       console.log(username)
+        if (toggleHand.innerHTML === "Your Hand is Raised!"){
+          currentList.innerHTML = participant;
+        } else {
+          currentList.innerHTML = "";
 
-//       update = {
-//         status: raisedHand,
-//         participant: username
-//       }
-//       message = callFrame.sendAppMessage(update, "*");      
-//     } else {
-//       x.innerHTML = "Need to ask a question?";
-//       raisedHand = false
-//       console.log("in else", raisedHand)
-//       update = {
-//         status: raisedHand,
-//         participant: username
-//       }
-//       message = callFrame.sendAppMessage(update, "*"); 
-//     }
-//     // console.log(alert())
-//   }
+        }
+
+      }
 
   
 
