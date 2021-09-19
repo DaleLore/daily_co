@@ -46,13 +46,14 @@ let raisingHand;
       async function updateHandState(message) {
         console.log("triggered")
         console.log(message.data.username)
+        console.log(message.data)
 
         let currentList = document.getElementById("participant_list");
         let participant = message.data.username
         let toggleHand = document.getElementById("toggleHand")
 
-        if (toggleHand.innerHTML === "Your Hand is Raised!"){
-          currentList.innerHTML = participant;
+        if (message.data.status == true){
+          currentList.innerHTML = message.data.username;
         } else {
           currentList.innerHTML = "";
 
