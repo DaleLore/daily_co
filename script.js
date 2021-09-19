@@ -7,7 +7,7 @@ async function run() {
 
 
   await callFrame.join({ url: room.url });
-  
+  callFrame.on('app-message', (event) => { console.log(`a hand was raised and it says ${JSON.stringify(event)}`)})
   callFrame.on('app-message', (event) => updateHandState(event) )
 
 }
@@ -32,12 +32,12 @@ let raisingHand;
         // Send a message to update all users on the change
         update = {
           status: raisingHand,
-          username: callFrame.participants().local.user_name
+          username: callFrame.participants().local.user_name,
         };
         let message = callFrame.sendAppMessage(update, "*");
-        console.log(message)
-      console.log(typeof update); 
-      console.log(typeof message); 
+      //   console.log(message)
+      // console.log(typeof update); 
+      // console.log(typeof message); 
 
         // callFrame.on('app-message', (event) => { console.log("this hand was raised in toggle")})
       }
