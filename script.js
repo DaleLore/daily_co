@@ -36,14 +36,15 @@ function toggleHand(){
 
 // Meeting Event:
 async function joinedCall(e) {
-  console.log("In joinedCall", e.action);
+  // console.log("In joinedCall", e.action);
 
   // Display Raise Hand Option when you arrive
   document.getElementById("raise_hand").style.display = "block";
 
-  console.log(e)
-  console.log(e.participants.local.user_id, e.participants.local.user_name)
+  // Call createParticipantDiv and carrying over userId and username
   createParticipantDiv(e.participants.local.user_id, e.participants.local.user_name)
+  
+  // Setting local_user info
   local_user.user_id = e.participants.local.user_id
   local_user.username = e.participants.local.user_name
 }
@@ -51,7 +52,11 @@ async function joinedCall(e) {
 // Participant Event:
 async function addParticipantList(e){
   console.log("In addParticipant", e.action);
+  
+  // Call createParticipantDiv and carrying over userId and username
   createParticipantDiv(e.participant.user_id, e.participant.user_name)
+  
+  // Broadcasting local_user info
   callFrame.sendAppMessage(local_user)
 }
 
