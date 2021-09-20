@@ -7,13 +7,14 @@ async function run() {
 
 
   await callFrame.join({ url: room.url });
-  
+  callFrame.on('joined-meeting', welcomeToDaily)
+  callFrame.on('participant-joined', BeOurGuest)
+  callFrame.on("participant-left", ThankYouComeAgain)
   callFrame.on('app-message', (event) => updateHandState(event) )
 
 }
 
 let raisingHand;
-let currentList = [];
 
 /**
        *  Toggles the participant's hand status, and sends a message alerting other participants to the change
@@ -45,21 +46,32 @@ let currentList = [];
 
 
       async function updateHandState(message) {
-        console.log("triggered")
+        console.log("In updateHandState function")
         console.log(message.data.username)
-        console.log(message.data)
+        console.log(message.data.user_id)
+        console.log(message.data.status)
 
-        let currentListHTML = document.getElementById("participant_list");
-        let currentList = callFrame.participants();
-
-        let participant = `<li id="${message.data.user_id}">
-                            <h5>${message.data.username}</h5>
-                          </li>`;
+        let username = message.data.username
 
         if (message.data.status == true){
           console.log("hand is raised")
+          let y = document.getElementById("participant_list")
+          y.innerHTML = username
         } else if (message.data.status === false){
           console.log("hand is lowered")
+          let y = document.getElementById("participant_list")          
+          y.innerHTML = " ";
         }
 
+      }
+
+      function BeOurGuest(e){
+        console.log("im here")
+
+        
+      }
+
+      function ThankYouComeAgain(e){
+        console.log("bye")
+        
       }

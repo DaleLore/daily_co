@@ -123,3 +123,29 @@ I gave it a class so we can do CSS on it later. Right now, it's just pure HTML ð
 This is where we start connecting JS logic to our HTML. All of our elements: the frame, the button, the list, are on our page, but they don't know that other elements exist.
 
 Similar to what we did with connecting the daily-js library beforehand, we're going to connect all the elements with JS.
+
+async function updateHandState(message) {
+    console.log("triggered")
+    console.log(message.data.username)
+    console.log(message.data)
+
+    let currentListHTML = document.getElementById("participant_list");
+
+    let participant = `<li id="${message.data.user_id}">
+                        <h5>${message.data.username}</h5>
+                      </li>`;
+
+    if (message.data.status == true){
+      console.log("hand is raised")
+      
+      currentList.push(participant)
+      currentListHTML.innerHTML += currentList
+
+      console.log("after push:", currentList)
+      console.log("after push:", currentListHTML)
+
+    } else if (message.data.status === false){
+      console.log("hand is lowered")
+    }
+
+  }
