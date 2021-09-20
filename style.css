@@ -40,10 +40,16 @@
     outline-style: solid;
 }
 
-#participants {
+#participantsUI {
     /* background-color: #383838; */
     outline-style: solid;
     padding-top: 5px;
 
+}
+
+#raise_hand {
+    background-color: red;
+    display: flex;
+    flex-direction: row;
 }
 

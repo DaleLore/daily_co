@@ -5,76 +5,83 @@ callFrame = window.DailyIframe.createFrame(document.getElementById("iframe"), {
 async function run() {
   let room = { url: "https://dalelore.daily.co/Raise-your-hand" };
 
-
-  await callFrame.join({ url: room.url });
- 
+  // Event Listeners for callbacks
+  callFrame.on("joined-meeting", joinedCall)
+  callFrame.on("participant-joined", addParticipantList)
+  callFrame.on("left-meeting", leftCall)
   callFrame.on('app-message', (event) => updateHandState(event) )
 
+  await callFrame.join({ url: room.url });
+  
+
+}
+// Global variables so it can reach all functions
+let local_user = {
+  user_id: "",
+  username: "",
+  handState: false,
+}
+let addParticpipant = document.getElementById("participantsList")
+
+// CallBack Method: sendAppMessage
+async function updateHandState(e){
+  console.log("In updateHandState", e.action);
+  toggleHand(e)
 }
 
-let raisingHand = {};
+// JavaScript Event Listener onClick
+function toggleHand(){
+  console.log("Clicked from HTML")
+}
 
-/**
-       *  Toggles the participant's hand status, and sends a message alerting other participants to the change
-       *
-       */
-      async function toggleHand(e) {
-          let participantWithHands = document.getElementById("participant_list")
-          let newParticipant = document.createElement('div')
-          newParticipant.id = callFrame.participants().local.user_id
-          user_id = newParticipant.id
-          username = callFrame.participants().local.user_name
+// Meeting Event:
+async function joinedCall(e) {
+  console.log("In joinedCall", e.action);
 
-        if (!raisingHand) {
-          raisingHand = true;
-          document.getElementById("toggleHand").innerHTML = "Your Hand is Raised!";
-          
-          newParticipant.innerHTML = username;
-          participantWithHands.appendChild(newParticipant);
+  // Display Raise Hand Option when you arrive
+  document.getElementById("raise_hand").style.display = "block";
 
-        } else {
-          raisingHand = false;
-          document.getElementById("toggleHand").innerHTML = "Need to ask a question?";
-        
-          removeParticipant(user_id)
-          // document.getElementById("toggleHand").
-        }
+  console.log(e)
+  console.log(e.participants.local.user_id, e.participants.local.user_name)
+  createParticipantDiv(e.participants.local.user_id, e.participants.local.user_name)
+  local_user.user_id = e.participants.local.user_id
+  local_user.username = e.participants.local.user_name
+}
 
-        update = {
-          status: raisingHand,
-          username: callFrame.participants().local.user_name,
-          user_id: callFrame.participants().local.user_id
-        };
-        callFrame.sendAppMessage(update, "*");
-        // console.log(message)
-        // console.log(typeof update); 
-        // console.log(typeof message); 
-        // callFrame.on('app-message', (event) => { console.log("this hand was raised in toggle")})
-      }
+// Participant Event:
+async function addParticipantList(e){
+  console.log("In addParticipant", e.action);
+  createParticipantDiv(e.participant.user_id, e.participant.user_name)
+  callFrame.sendAppMessage(local_user)
+}
 
-      function removeParticipant(user_id){
-        console.log("removing")
-        if (user_id === callFrame.participants().local.user_id)
-          var removeParticipantDiv = document.getElementById(user_id)
-          removeParticipantDiv.remove()
-      }
+// 
+async function createParticipantDiv(id, name){
+  console.log("In addParticipant");
+  
+  let participant = document.createElement('div')
+  participant = `
+                  <div id=${id}>
+                    <p>${name}</p>
+                    <img 
+                      id="${id}-hand"
+                      src="./Assets/icon-raised-hand.png" 
+                      alt="Raised hand" 
+                      style="display: none"
+                      height="20px;"
+                    />
+                  </div>
+                `
+  addParticpipant.innerHTML += participant
+}
 
-      async function updateHandState(message) {
-        console.log("In updateHandState function")
-        console.log(message.data.username)
-        console.log(message.data.user_id)
-        console.log(message.data.status)
 
-        let username = message.data.username
+// async function updateParticipantList(e){
+//   console.log("In updateList", e.action);
+// }
 
-        if (message.data.status == true){
-          console.log("hand is raised")
-          let y = document.getElementById("participant_list")
-          y.innerHTML = username
-        } else if (message.data.status === false){
-          console.log("hand is lowered")
-          let y = document.getElementById("participant_list")          
-          y.innerHTML = " ";
-        }
+// Meeting Event:
+async function leftCall(e){
+  console.log("In Bye Bye",e.action);
 
-      }
+}
