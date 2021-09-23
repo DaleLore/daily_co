@@ -20,7 +20,7 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <button class="btn btn-lg btn-info" 
-                    id="join_call"
+                    id="join_call_button"
                     onclick="run()"> Join Call </button>
           </li>
         </ul>
@@ -38,8 +38,8 @@
                   >
                   <h6>Raise your hand to get the moderator's attention</h6>
                   <div class="raiseHandDiv">
-                    <div id="local-hand"class="raiseHandDiv-item" >Need to ask a question?</div> 
-                    <div class="raiseHandDiv-item">🤚🏼</div>
+                    <div id="local-hand" class="raiseHandDiv-item" >Need to ask a question?</div> 
+                    <div id="hand-emoji" class="raiseHandDiv-item" style="display: none">🤚🏼</div>
                   </div> 
               </div>
           </div>
@@ -47,7 +47,7 @@
           
 
           <div class="container h-50" id="participantsUI">
-            <h4 class="title">Participants With Raised Hands</h4>
+            <h4 class="title">Participants In Call</h4>
               <div id="participantsList"></div>
 
               
