@@ -29,19 +29,18 @@
       <div class="d-flex" id="app">
         <div class="container w-50" id="controller">
           <div class="container h-50" id="about">
-              <h5>Welcome to Room</h5>  
+              <h5>Welcome to Daily.co Room</h5>  
               
               <div
-                  id="raise_hand"
+                  id="raise_hand_container"
                   onclick="toggleHand()"
                   style="display: none;"
                   >
-                  <p class="subtitle">
-                    Raise your hand to get the moderator's attention
-                  </p>
-                    🤚🏼
-              
-                <div id="local-hand" >Need to ask a question?</div>  
+                  <h6>Raise your hand to get the moderator's attention</h6>
+                  <div class="raiseHandDiv">
+                    <div id="local-hand"class="raiseHandDiv-item" >Need to ask a question?</div> 
+                    <div class="raiseHandDiv-item">🤚🏼</div>
+                  </div> 
               </div>
           </div>
 
