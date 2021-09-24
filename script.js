@@ -17,6 +17,7 @@ async function run() {
   let room = { url: "https://dalelore.daily.co/Raise-your-hand" };
 
   callFrame.on("joined-meeting", joinedCall)
+  callFrame.on("participant-joined", updateParticipantList)
   callFrame.on("left-meeting", leftCall)
   callFrame.on('app-message', (event) => sendingUpdates(event) )
 
@@ -24,12 +25,20 @@ async function run() {
   
 }
 
+
+
 function sendingUpdates(message){
   console.log(message)
-  console.log("An event happened!")
-
-
-
+  console.log(message.fromId)
+  let id = message.fromId
+  
+  if (!user_data.handState) {
+    user_data.handState = true;
+    document.getElementById(id + "-hand").style.display = "block";
+  } else {
+    user_data.handState = false;
+  document.getElementById(id + "-hand").style.display = "none";
+  }
 }
 
 function toggleHand(e){
@@ -40,12 +49,14 @@ function toggleHand(e){
     user_data.handState = true;
     document.getElementById("local-hand").innerHTML = "Your Hand is Raised!";
     document.getElementById("hand-emoji").style.display = "block";
-    document.getElementById(id + "-hand").style.display = "block";
+    document.getElementById("local").style.display = "block";
+
   } else {
     user_data.handState = false;
     document.getElementById("local-hand").innerHTML = "Need to ask a question?";
     document.getElementById("hand-emoji").style.display = "none";
-    document.getElementById(id + "-hand").style.display = "none";
+    document.getElementById("local").style.display = "none";
+
   } 
 
   let message = user_data
@@ -64,9 +75,19 @@ async function joinedCall(e){
   // Call createParticipantDiv and carrying over userId and username
   createParticipantDiv(e.participants.local.user_id, e.participants.local.user_name)
   
-  // Setting user_data info as local joins
-  user_data.user_id = e.participants.local.user_id
-  user_data.username = e.participants.local.user_name
+  // // Setting user_data info as local joins
+  // user_data.user_id = e.participants.local.user_id
+  // user_data.username = e.participants.local.user_name
+}
+
+async function updateParticipantList(e){
+  console.log("someone joined", e)
+  createParticipantDiv(e.participant.user_id, e.participant.user_name)
+
+  //  // Setting user_data info as participant joins
+  //  user_data.user_id = e.participant.user_id
+  //  user_data.username = e.participant.user_name
+
 }
 
 function createParticipantDiv(id, username){
@@ -90,15 +111,24 @@ function createParticipantDiv(id, username){
                          style="display: none"
                          height="20px;"
                        />
+                       <img 
+                         id="local"
+                         src="./Assets/icon-raised-hand.png" 
+                         class="participantBlock-item"
+                         class="hand"
+                         alt="Raised hand" 
+                         style="display: none"
+                         height="20px;"
+                       />
             
                    </div>
                  `
    addParticpipant.innerHTML += dailyUser
 
    user_data = {
-      user_id: "",
-      username: "",
-      handState: false,
+      user_id: id,
+      username: username,
+      handState: {},
     }
    callFrame.sendAppMessage(user_data, "*")
 }
@@ -110,8 +140,9 @@ function createParticipantDiv(id, username){
 
 
 function leftCall(e){
+  let id = user_data.user_id
   document.getElementById("raise_hand_container").style.display = "none";
   document.getElementById("join_call_button").style.display = "block";
-  
+  document.getElementById(id).remove()
   location.reload();
 }
