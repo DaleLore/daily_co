@@ -17,8 +17,9 @@ async function run() {
   let room = { url: "https://dalelore.daily.co/Raise-your-hand" };
 
   callFrame.on("joined-meeting", joinedCall)
-  callFrame.on("participant-joined", updateParticipantList)
+  callFrame.on("participant-joined", participantJoined)
   callFrame.on("left-meeting", leftCall)
+  callFrame.on("participant-left", participantLeft)
   callFrame.on('app-message', (event) => sendingUpdates(event) )
 
   await callFrame.join({ url: room.url });
@@ -80,7 +81,7 @@ async function joinedCall(e){
   // user_data.username = e.participants.local.user_name
 }
 
-async function updateParticipantList(e){
+async function participantJoined(e){
   console.log("someone joined", e)
   createParticipantDiv(e.participant.user_id, e.participant.user_name)
 
@@ -140,9 +141,21 @@ function createParticipantDiv(id, username){
 
 
 function leftCall(e){
-  let id = user_data.user_id
+  console.log("I left")
+  console.log(e)
+ 
+  let id = callFrame.participants().local.user_id
   document.getElementById("raise_hand_container").style.display = "none";
   document.getElementById("join_call_button").style.display = "block";
+  callFrame.sendAppMessage()
+
   document.getElementById(id).remove()
   location.reload();
+}
+
+function participantLeft(e){
+  console.log("Someone left")
+  let participantId = e.participant.user_id
+  document.getElementById(participantId).remove()
+
 }
