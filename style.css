@@ -60,7 +60,7 @@
 
 
 .participantBlock {
-    background-color: lightgreen;
+    /* background-color: lightgreen; */
     height: 50px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
@@ -70,6 +70,9 @@
 }
 
 .participantBlock-item {
-    background-color: lightsalmon;
+    padding-left: 10px;
 }
 
+#usernameDiv {
+    padding-top: 10px;
+}

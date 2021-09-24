@@ -101,7 +101,7 @@ function createParticipantDiv(id, username){
    dailyUser = `
                    <div id=${id} class="participantBlock">
                     
-                     <div class="participantBlock-item"><p>${username}</p></div>
+                     <div class="participantBlock-item" id="usernameDiv"><h5>${username}</h5></div>
                  
                        <img 
                          id="${id}-hand"
@@ -110,7 +110,7 @@ function createParticipantDiv(id, username){
                          class="hand"
                          alt="Raised hand" 
                          style="display: none"
-                         height="20px;"
+                         height="30px;"
                        />
                        <img 
                          id="local"
@@ -119,7 +119,7 @@ function createParticipantDiv(id, username){
                          class="hand"
                          alt="Raised hand" 
                          style="display: none"
-                         height="20px;"
+                         height="30px;"
                        />
             
                    </div>
@@ -156,6 +156,8 @@ function leftCall(e){
 function participantLeft(e){
   console.log("Someone left")
   let participantId = e.participant.user_id
+  callFrame.sendAppMessage()
+
   document.getElementById(participantId).remove()
 
 }
