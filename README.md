@@ -137,7 +137,7 @@ In the Daily.co docs, these are specific events we can listen for and react to w
 ## Local Participant
 For a local participant, we want to know when they join, when they clicked on a button to raise their hand, and when they leave. We're going to use daily-js video call events for our local participant and create a customized JavaScript event listener for that raising hand feature.
 
-### Daily.co API Events
+### Local Participant Events
 * `on()`: This is an instance method that we'll add after joining the call and will evoke after callframe. This method will include an eventName as well as a callback. The eventName could be any of the Events listed in the daily-js docs: https://docs.daily.co/reference/daily-js/events. The callbacks are the functions you'll create. 
 
 * `joined-meeting`: This meeting event is when a local participant joins the call. It will return a list of all the participants: https://docs.daily.co/reference/daily-js/events/meeting-events#joined-meeting 
@@ -172,14 +172,14 @@ Within the callback function of joinedCall, we're going to evoke another functio
 This is also the point where I'll need to start create elements in the `<body>` so I can see what is happening. If I want to see all these new participants joining, I'm going to need to code space in the HTML to accommodate them. I'm going to create a `<div>` element to append all these new participants divs within my HTML. Just above the `<script>` tag.
 
 ```
-<!-- In the body, above the script tags -->
+<!-- HTML: In the body, above the script tags -->
 <div id="participantsList">
             Participants
 </div>
 ```
 
 ```
-<!-- in the script tag, JavaScript part -->
+<!-- JS: Below the script tag -->
 
 async function joinedCall(e){
   createParticipantDiv(e.participants.local.user_id, e.participants.local.user_name)
@@ -217,6 +217,8 @@ function createParticipantDiv(id, username){
    addParticpipant.innerHTML += dailyUser
 }
 ``` 
+##### Note: The createParticipantDiv function works for both local and other participants. 
+<br>
 
 <kbd>
 <img src="./Assets/screenshot-html-02.png">
@@ -225,8 +227,37 @@ Refer to `react_to_local.html` in the <b>Steps</b> folder to see code at this po
 
 
 #### Let local participant raise their hand
+Here is where we start implementing the `Raise Hand` feature. We're going to create a button for our `Raise Hand` feature, a variable for the handState, as well as custom JavaScript event listeners called `toggleHand()` and `sendingUpdates()`, and we'll use a Daily.co Instance method: `sendAppMessage()`. 
 
+- [] For the variable, just add `let raisingHand;` just below the `<script>` tag. This will be a global variable that we can refer to in any function. 
 
+- []  For the button, we're adding a unique ID as well as the onClick() JavaScript event. 
+```
+<!-- In the body, above the script tags -->
+<button
+  id="raise_hand_container"
+  onclick="toggleHand()"
+  >
+  Raise Hand
+</button>
+```
+- [] For `toggleHand()`, we're going to do an if/else statement based on whether or not the raisingHand is true or false. I've created variables that refer to the local participant informatino such as user_id and username.
 
+  * If `!raisingHand` (not raisingHand), we'll make `raisingHand = true` when I click on the button and display our hand. Else, `raisingHand = false` when I last clicked and we'll hide the hand. I'll need to add some styling to my elements now (style.display="none" and style.display="block")
+  * Package that information in a hash where we'll have information referring to the person clicking such as ID, username, and now our raisingHand status.
 
+- [] `sendAppMessage()`: This instance method will send a message to other participants, or another specific participant, during the call. To do something with that information, we'll use the Daily.co `app-message event`, adding a callback function `sendingUpdates`. For more information, check out the docs: https://docs.daily.co/reference/rn-daily-js/instance-methods/send-app-message#main 
+
+```
+callFrame.sendAppMessage(update, "*");
+```
+
+- [] For `sendingUpdates()`, we'll need to add another `.on()` event that will evoke `sendingUpdates()` and determine if the message.data.status (which is my handState) is true, show the hand block that we added while creating the participant. If the message.data.status is false, remain hidden.
+
+<kbd>
+<img src="./Assets/screenshot-html-03.png">
+Refer to `03-local_hand.html` in the <b>Steps</b> folder to see code at this point.
+</kbd>
+
+#### React when a user leaves a call
 
