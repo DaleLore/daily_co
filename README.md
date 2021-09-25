@@ -1,5 +1,5 @@
 # Lorena | Daily 
-## Sample work: Raise your hand
+## Raise your hand
 This sample work includes sample code and a piece of content about implementing a `Raise your hand` feature during a video call in the form of a developer tutorial on Daily.co's blog: https://www.daily.co/blog/
 
 ### Set up your environment
@@ -10,7 +10,7 @@ The Daily JavaScript library gives you several options for adding video calls to
 Let's go step by step over what you'll need and why.
 
 #### Set up HTML
-Create a basic HTML page
+* Basic HTML page
 In the directory(folder) you're working in, create a new file `index.html`
 
 Set up the basic HTML DOCTYPE structure (https://www.w3schools.com/html/)
@@ -27,6 +27,7 @@ And you're done! We'll be adding more here later because this is where all our c
 
 Now link up these two new files!
 
+#### Set up CSS
 
 #### Connect them
 From the <head> in your HTML, you'll need to connect your Javascript with a tag:

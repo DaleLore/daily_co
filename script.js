@@ -54,7 +54,7 @@ function toggleHand(e){
 
   } else {
     user_data.handState = false;
-    document.getElementById("local-hand").innerHTML = "Need to ask a question?";
+    document.getElementById("local-hand").innerHTML = "Need to ask a question? Click to raise your hand";
     document.getElementById("hand-emoji").style.display = "none";
     document.getElementById("local").style.display = "none";
 
@@ -148,7 +148,6 @@ function leftCall(e){
   document.getElementById("raise_hand_container").style.display = "none";
   document.getElementById("join_call_button").style.display = "block";
   callFrame.sendAppMessage()
-
   document.getElementById(id).remove()
   location.reload();
 }
@@ -157,7 +156,9 @@ function participantLeft(e){
   console.log("Someone left")
   let participantId = e.participant.user_id
   callFrame.sendAppMessage()
-
+  document.getElementById("raise_hand_container").style.display = "none";
+  document.getElementById("join_call_button").style.display = "block";
   document.getElementById(participantId).remove()
-
+  location.reload();
+  
 }
