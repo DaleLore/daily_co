@@ -38,13 +38,15 @@ function sendingUpdates(message){
     document.getElementById(id + "-hand").style.display = "block";
   } else {
     user_data.handState = false;
-  document.getElementById(id + "-hand").style.display = "none";
+    document.getElementById(id + "-hand").style.display = "none";
   }
 }
 
-function toggleHand(e){
+function toggleHand(){
   console.log("I click")
-  let id = user_data.user_id 
+  // console.log(e)
+  let localID = callFrame.participants().local.user_id
+  let localUsername = callFrame.participants().local.user_name
 
   if (!user_data.handState) {
     user_data.handState = true;
@@ -63,7 +65,9 @@ function toggleHand(e){
   } 
 
   update = {
+    user_id: localID,
     status: raisingHand,
+    username: localUsername,
   };
   callFrame.sendAppMessage(update, "*");
 }
@@ -143,12 +147,6 @@ function leftCall(e){
   console.log("I left")
   console.log(e)
  
-  let id = callFrame.participants().local.user_id
-  document.getElementById(id).remove()
-  callFrame.sendAppMessage()
-
-  document.getElementById("raise_hand_container").style.display = "none";
-  document.getElementById("join_call_button").style.display = "block";
   location.reload();
 }
 
@@ -157,9 +155,4 @@ function participantLeft(e){
   let participantSessionId = e.participant.session_id
   document.getElementById(participantSessionId).remove()
   callFrame.sendAppMessage()
-
-  document.getElementById("raise_hand_container").style.display = "none";
-  document.getElementById("join_call_button").style.display = "block";
-  location.reload();
-
 }
