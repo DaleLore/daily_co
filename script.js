@@ -31,13 +31,14 @@ async function run() {
 function sendingUpdates(message){
   console.log(message)
   console.log(message.fromId)
+  console.log(message.data.username)
+  console.log(message.data.status)
+
   let id = message.fromId
   
-  if (!user_data.handState) {
-    user_data.handState = true;
+  if (message.data.status === true) {
     document.getElementById(id + "-hand").style.display = "block";
-  } else {
-    user_data.handState = false;
+  } else if (message.data.status === false){
     document.getElementById(id + "-hand").style.display = "none";
   }
 }
@@ -48,7 +49,7 @@ function toggleHand(){
   let localID = callFrame.participants().local.user_id
   let localUsername = callFrame.participants().local.user_name
 
-  if (!user_data.handState) {
+  if (!raisingHand) {
     user_data.handState = true;
     raisingHand = true
     document.getElementById("local-hand").innerHTML = "Your Hand is Raised!";
