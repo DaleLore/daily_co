@@ -158,9 +158,9 @@ For a local participant, we want to know when they join, when they clicked on a 
     
   }
   ```
-
-![Daily.co API Events](./Assets/screenshot-html-01.png)
+<kbd><img src="./Assets/screenshot-html-01.png">
 ##### Refer to `dailyco_events.html` in the <b>Steps</b> folder to see code at this point.
+<kbd>
 
  <hr>
  <br>
@@ -217,8 +217,11 @@ function createParticipantDiv(id, username){
 }
 ``` 
 
-![Daily.co API Events: HTML and JS](./Assets/screenshot-html-02.png)
+<kbd>
+<img src="./Assets/screenshot-html-02.png">
 ##### Refer to `react_to_local.html` in the <b>Steps</b> folder to see code at this point.
+<kbd>
+
 
 #### Let local participant raise their hand
 
