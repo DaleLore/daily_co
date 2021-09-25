@@ -9,7 +9,7 @@ let user_data = {
     username: "",
     handState: {},
   }
-
+let raisingHand
 
 let addParticpipant = document.getElementById("participantsList")
 
@@ -48,20 +48,24 @@ function toggleHand(e){
 
   if (!user_data.handState) {
     user_data.handState = true;
+    raisingHand = true
     document.getElementById("local-hand").innerHTML = "Your Hand is Raised!";
     document.getElementById("hand-emoji").style.display = "block";
     document.getElementById("local").style.display = "block";
 
   } else {
     user_data.handState = false;
+    raisingHand = false
     document.getElementById("local-hand").innerHTML = "Need to ask a question? Click to raise your hand";
     document.getElementById("hand-emoji").style.display = "none";
     document.getElementById("local").style.display = "none";
 
   } 
 
-  let message = user_data
-  callFrame.sendAppMessage(message, "*");
+  update = {
+    handState = raisingHand
+  }
+  callFrame.sendAppMessage(update, "*");
 }
 
 
@@ -126,18 +130,13 @@ function createParticipantDiv(id, username){
                  `
    addParticpipant.innerHTML += dailyUser
 
-   user_data = {
-      user_id: id,
-      username: username,
-      handState: {},
-    }
-   callFrame.sendAppMessage(user_data, "*")
+  //  user_data = {
+  //     user_id: id,
+  //     username: username,
+  //     handState: {},
+  //   }
+  //  callFrame.sendAppMessage(user_data, "*")
 }
-
-
-
-
-
 
 
 function leftCall(e){
@@ -160,5 +159,5 @@ function participantLeft(e){
   document.getElementById("join_call_button").style.display = "block";
   document.getElementById(participantId).remove()
   location.reload();
-  
+
 }
