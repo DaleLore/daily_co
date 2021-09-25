@@ -79,21 +79,44 @@ You should have three files: `index.html`, `script.js`, and `style.css` With tha
 <hr>
 <br>
 
-### Before integrating Daily 
-This part is a couple of housekeeping steps:
+# Before integrating Daily 
+There are a couple of housekeeping steps:
 1. Register at Daily.co
-    This might seem redundant if you're looking into customizing features, but this part is important because in order to customize and add features, you'll need what is called a `[Daily room URL]`(https://help.daily.co/en/articles/4202139-creating-and-viewing-rooms) because you'll be replacing the default code `https://your-team.daily.co/hello` with your own room URL.
+    This might seem redundant to mention, but this part is important because in order to customize and add features, you'll need what is called a `[Daily room URL]`(https://help.daily.co/en/articles/4202139-creating-and-viewing-rooms) because you'll be replacing the default code the Daily gives us with your own room URL.
+
+    ```
+    Look for this code: 
+    https://your-team.daily.co/hello
+    OR
+    A_DAILY_CO_ROOM_URL
+    ```
 
 2.  Have the docs for Daily JS handy
-    We're going to be referencing this doc a lot: https://docs.daily.co/reference/daily-js
+    We're going to be referencing this documentation a lot: https://docs.daily.co/reference/daily-js
 
-OK to the elements!
 
-### Add my Elements!
+<hr>
+
+# How to set up Daily.co video calls
+## Connect to Daily.co by loading the library in a script tag
+
+The easiest way to get started is to load this library from unpkg, and add a couple of lines of code to your web page or app. We're goign to embed a Daily prebuilt into our files. You can refer to the docs where it mentions it: https://docs.daily.co/prebuilt#step-by-step-guide-embed-daily-prebuilt
+
+```
+<script crossorigin src="https://unpkg.com/@daily-co/daily-js"></script>
+``` 
+
+You can just copy and paste that exact code into the `<head>` of your HTML file.
+<br>
+
+<img src="./Assets/screenshot-dailyscript.png">
+<hr>
+
+## Add UI Elements
 There are a couple of elements needed for this. And then we connect them so they all communicate with each other.
 
 We'll need:
-(1) Daily.co call frame
+- [ ]Daily.co call frame
     This is for the video call
 (2) Hand Button
     This is the feature we're are implementing
@@ -125,6 +148,7 @@ There's different ways to do this but we'll go with the simplest at the moment w
 ```
 
 You can even test it out! Double click your `index.html` and it'll open up in your web browser and you'll be able to see your own personal video room. Don't worry about how it looks. That's where CSS and JS come in.
+
 
 #### Add my elements: The Button
 We're going to add a button that raises and lowers your hand by toggling between "Need to ask a question?" and "Your Hand is Raised!" accordingly.

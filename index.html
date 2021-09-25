@@ -9,10 +9,15 @@
         <!-- JS -->
         <script src="https://unpkg.com/@daily-co/daily-js"></script>
         <script defer src="script.js"></script>
+        
         <!-- CSS -->
         <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" 
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+              crossorigin="anonymous">
     </head>
+
     <body>
       <nav class="navbar">
         <img src="https://assets.website-files.com/59c9811db5fc1c0001445dbd/602eb8daa2085c082ebadebe_logoDailyprimaryLightground.svg">
@@ -29,8 +34,8 @@
       <div class="d-flex" id="app">
         <div class="container w-50" id="controller">
           <div class="container h-50" id="about">
-              <h5>Welcome to Daily.co Room</h5>  
-              
+
+              <h5>Welcome to Daily.co Room</h5>    
               <div
                   id="raise_hand_container"
                   onclick="toggleHand()"
@@ -44,21 +49,13 @@
               </div>
           </div>
 
-          
-
           <div class="container h-50" id="participantsUI">
             <h4 class="title">Participants In Call</h4>
               <div id="participantsList"></div>
-
-              
           </div>    
         </div>
 
-        <div class="w-50 h90" id="iframe">
-            
-        </div>
-        
+        <div class="w-50 h90" id="iframe"></div>   
       </div>
-      <!-- <script defer src="./script.js"></script> -->
     </body>
 </html>
