@@ -63,8 +63,8 @@ function toggleHand(e){
   } 
 
   update = {
-    handState: raisingHand
-  }
+    status: raisingHand,
+  };
   callFrame.sendAppMessage(update, "*");
 }
 
@@ -153,11 +153,13 @@ function leftCall(e){
 
 function participantLeft(e){
   console.log("Someone left")
-  let participantId = e.participant.user_id
-  callFrame.sendAppMessage()
+  let participantSessionId = e.participant.session_id
+  
   document.getElementById("raise_hand_container").style.display = "none";
   document.getElementById("join_call_button").style.display = "block";
-  document.getElementById(participantId).remove()
+  document.getElementById(participantSessionId).remove()
+  callFrame.sendAppMessage()
+
   location.reload();
 
 }
