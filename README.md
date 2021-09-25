@@ -75,7 +75,7 @@ In the <head> of your HTML file, you'll need to connect your Javascript and CSS 
 #### Review: Environment setup
 You should have three files: `index.html`, `script.js`, and `style.css` With that connect, let's start adding our Daily JS library functions.
 
-<img src="./Assets/screenshot-setup.png">
+<img src="./Assets/screenshot-01-setup.png">
 <hr>
 <br>
 
@@ -109,113 +109,35 @@ The easiest way to get started is to load this library from unpkg, and add a cou
 You can just copy and paste that exact code into the `<head>` of your HTML file.
 <br>
 
-<img src="./Assets/screenshot-dailyscript.png">
+<img src="./Assets/screenshot-02-dailyscript.png">
 <hr>
 
 ## Add UI Elements
-There are a couple of elements needed for this. And then we connect them so they all communicate with each other.
+There are a couple of elements needed for this. We'll be building out our User Interface elements in our HTML file first. And then we connect them to JS and CSS so they all communicate with each other.
 
 We'll need:
-- [ ]Daily.co call frame
-    This is for the video call
-(2) Hand Button
-    This is the feature we're are implementing
-(3) Participant List
-    This is so partipicants knows who are on the call and can see your hand raised 
+- [ ] Daily.co call frame: This is for the video call
+- [ ] Hand Button: This is the feature we're are implementing
+- [ ] Participants: We'll need to know who is who when people start toggling their hands
 
-#### Add my elements: The Frame
-This option is a combo of HTML/JS so they are definitely different ways of doing this, but if you've checked Daily's docs, there's a lot there. And you're probably come across the embed Daily Prebuilt code (https://docs.daily.co/prebuilt)
+### Add UI element: Daily.co Frame
+There are a couple of ways we can add a frame (i.e. callObject, createframe(), etc), but we're going to embed the code Daily has so kindly shared for a Daily prebuilt video call component. We're already referred to the docs here: https://docs.daily.co/prebuilt#step-by-step-guide-embed-daily-prebuilt
+
+The Daily JS library script is already added, but we're going to add the code snippet for the video call into the `<body>` of our HTML page.
 
 ```
-<html>
-  <script crossorigin src="https://unpkg.com/@daily-co/daily-js"></script>
   <body>
     <script>
       callFrame = window.DailyIframe.createFrame();
       callFrame.join({ url: 'https://your-team.daily.co/hello' });
     </script>
   </body>
-</html>
 ```
 
-There's different ways to do this but we'll go with the simplest at the moment which is first adding `<script crossorigin src="https://unpkg.com/@daily-co/daily-js"></script>` in the HTML's `<head>` and then including the following code into our `<body>` in the HTML.
+My HTML is starting to look like this. I've replaced `https://your-team.daily.co/hello` in the code snippet with my own room URL.
 
-```
-<script>
-    callFrame = window.DailyIframe.createFrame();
-    callFrame.join({ url: 'https://your-team.daily.co/hello' });
-</script>
-```
-
-You can even test it out! Double click your `index.html` and it'll open up in your web browser and you'll be able to see your own personal video room. Don't worry about how it looks. That's where CSS and JS come in.
+<img src="./Assets/screenshot-03-dailyvideo.png">
 
 
-#### Add my elements: The Button
-We're going to add a button that raises and lowers your hand by toggling between "Need to ask a question?" and "Your Hand is Raised!" accordingly.
+At this point, you can start testing it out! Double click your `index.html` and it'll open up in your web browser and you'll be able to see your own personal video room. Don't worry about how it looks. That's where CSS and JS come in.
 
-For this, HTML has a button tag!
-`<button></button>`
-
-We're going to give it:
-*  ID 
-   `id="raise_hand"`
-    It can be anything you want, as long as you remember that it's for the button
-* JS onclick event
-    `onclick="raiseYourHand()"`
-    More information: https://www.w3schools.com/jsref/event_onclick.asp
-* Text (or emojis!) for button
-    You can write 'Click Me', 'Raise Hand', or even use an emoji 🤚🏼 for the button content.
-
-That button now needs to toggle some text so we're going to create another `<div>`, give it an ID, and write the default text: "Need to ask a question>" 
-
-It should end up like this:
-```
-<div class="participants">
-    <button 
-        id="raise_hand"
-        onclick="raiseYourHand()">
-                🤚🏼
-    </button>
-    <div id="toggleHand">Need to ask a question?</div>
-</div>
-``` 
-
-If you click on it now, nothing's going to happen because we need to give it some JavaScript logic, but that'll come! Continue to participant list.
-
-#### Add my elements: The List
-The list will be literally an unordered list so in the HTML body, preferrably within the `<div>` we added the button so they can all be together, create an unordered list: https://www.w3schools.com/tags/tag_ul.asp
-
-`<ul class="participant_list"></ul>`
-
-I gave it a class so we can do CSS on it later. Right now, it's just pure HTML 😎
-
-### Add my JS Logic
-This is where we start connecting JS logic to our HTML. All of our elements: the frame, the button, the list, are on our page, but they don't know that other elements exist.
-
-Similar to what we did with connecting the daily-js library beforehand, we're going to connect all the elements with JS.
-
-async function updateHandState(message) {
-    console.log("triggered")
-    console.log(message.data.username)
-    console.log(message.data)
-
-    let currentListHTML = document.getElementById("participant_list");
-
-    let participant = `<li id="${message.data.user_id}">
-                        <h5>${message.data.username}</h5>
-                      </li>`;
-
-    if (message.data.status == true){
-      console.log("hand is raised")
-      
-      currentList.push(participant)
-      currentListHTML.innerHTML += currentList
-
-      console.log("after push:", currentList)
-      console.log("after push:", currentListHTML)
-
-    } else if (message.data.status === false){
-      console.log("hand is lowered")
-    }
-
-  }
