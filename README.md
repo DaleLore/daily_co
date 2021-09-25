@@ -25,15 +25,16 @@ You have your basic html page set up!
 
 ```
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-  <title>Title of the document</title>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
   </head>
-
   <body>
-  
+      
   </body>
-
 </html>
 ```
 <hr>
@@ -63,7 +64,7 @@ In the <head> of your HTML file, you'll need to connect your Javascript and CSS 
 
 - [ ] Connect JS file
 ```
-<script type='text/javascript' src='./script.js'></script>
+<script type='text/javascript' src='script.js'></script>
 ```
 
 - [ ] Connect CSS file
@@ -71,7 +72,10 @@ In the <head> of your HTML file, you'll need to connect your Javascript and CSS 
 <link rel="stylesheet" href="style.css">
 ```
 
-With that connect, let's start adding our Daily JS library functions.
+#### Review: Environment setup
+You should have three files: `index.html`, `script.js`, and `style.css` With that connect, let's start adding our Daily JS library functions.
+
+<img src="./Assets/screenshot-setup.png">
 <hr>
 <br>
 
