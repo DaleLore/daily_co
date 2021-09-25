@@ -229,9 +229,10 @@ Refer to `react_to_local.html` in the <b>Steps</b> folder to see code at this po
 #### Let local participant raise their hand
 Here is where we start implementing the `Raise Hand` feature. We're going to create a button for our `Raise Hand` feature, a variable for the handState, as well as custom JavaScript event listeners called `toggleHand()` and `sendingUpdates()`, and we'll use a Daily.co Instance method: `sendAppMessage()`. 
 
-- [] For the variable, just add `let raisingHand;` just below the `<script>` tag. This will be a global variable that we can refer to in any function. 
+- [ ] For the variable, just add `let raisingHand;` just below the `<script>` tag. This will be a global variable that we can refer to in any function. 
 
-- []  For the button, we're adding a unique ID as well as the onClick() JavaScript event. 
+- [ ] For the button, we're adding a unique ID as well as the onClick() JavaScript event. 
+
 ```
 <!-- In the body, above the script tags -->
 <button
@@ -241,18 +242,18 @@ Here is where we start implementing the `Raise Hand` feature. We're going to cre
   Raise Hand
 </button>
 ```
-- [] For `toggleHand()`, we're going to do an if/else statement based on whether or not the raisingHand is true or false. I've created variables that refer to the local participant informatino such as user_id and username.
+- [ ] For `toggleHand()`, we're going to do an if/else statement based on whether or not the raisingHand is true or false. I've created variables that refer to the local participant informatino such as user_id and username.
 
   * If `!raisingHand` (not raisingHand), we'll make `raisingHand = true` when I click on the button and display our hand. Else, `raisingHand = false` when I last clicked and we'll hide the hand. I'll need to add some styling to my elements now (style.display="none" and style.display="block")
   * Package that information in a hash where we'll have information referring to the person clicking such as ID, username, and now our raisingHand status.
 
-- [] `sendAppMessage()`: This instance method will send a message to other participants, or another specific participant, during the call. To do something with that information, we'll use the Daily.co `app-message event`, adding a callback function `sendingUpdates`. For more information, check out the docs: https://docs.daily.co/reference/rn-daily-js/instance-methods/send-app-message#main 
+- [ ] `sendAppMessage()`: This instance method will send a message to other participants, or another specific participant, during the call. To do something with that information, we'll use the Daily.co `app-message event`, adding a callback function `sendingUpdates`. For more information, check out the docs: https://docs.daily.co/reference/rn-daily-js/instance-methods/send-app-message#main 
 
 ```
 callFrame.sendAppMessage(update, "*");
 ```
 
-- [] For `sendingUpdates()`, we'll need to add another `.on()` event that will evoke `sendingUpdates()` and determine if the message.data.status (which is my handState) is true, show the hand block that we added while creating the participant. If the message.data.status is false, remain hidden.
+- [ ] For `sendingUpdates()`, we'll need to add another `.on()` event that will evoke `sendingUpdates()` and determine if the message.data.status (which is my handState) is true, show the hand block that we added while creating the participant. If the message.data.status is false, remain hidden.
 
 <kbd>
 <img src="./Assets/screenshot-html-03.png">
@@ -260,4 +261,17 @@ Refer to `03-local_hand.html` in the <b>Steps</b> folder to see code at this poi
 </kbd>
 
 #### React when a user leaves a call
+We'll need to add another `.on()` event that will evoke when the local participant leaves. And as they leave, we'll just refresh their page so everything gets cleaned. Refer to the docs, Meeting Event: "left-meeting" https://docs.daily.co/reference/daily-js/events/meeting-events#left-meeting
+
+```
+<!-- .on() events -->
+callFrame
+  .on("left-meeting", leftCall)
+
+<!-- Towards the bottom of our script -->
+  function leftCall(e){
+    location.reload();
+  }
+```
+
 
