@@ -10,9 +10,9 @@ let user_data = {
     handState: {},
   }
 let raisingHand
-
 let addParticpipant = document.getElementById("participantsList")
 
+// JavaScript Event Listener - onClick evokes instance method, join(): https://docs.daily.co/reference/daily-js/instance-methods/join
 async function run() {
   let room = { url: "https://dalelore.daily.co/Raise-your-hand" };
 
@@ -26,13 +26,11 @@ async function run() {
   
 }
 
-
-
 function sendingUpdates(message){
-  console.log(message)
-  console.log(message.fromId)
-  console.log(message.data.username)
-  console.log(message.data.status)
+  // console.log(message)
+  // console.log(message.fromId)
+  // console.log(message.data.username)
+  // console.log(message.data.status)
 
   let id = message.fromId
   
@@ -43,9 +41,8 @@ function sendingUpdates(message){
   }
 }
 
+// JavaScript Event Listener - onClick
 function toggleHand(){
-  console.log("I click")
-  // console.log(e)
   let localID = callFrame.participants().local.user_id
   let localUsername = callFrame.participants().local.user_name
 
@@ -55,14 +52,12 @@ function toggleHand(){
     document.getElementById("local-hand").innerHTML = "Your Hand is Raised!";
     document.getElementById("hand-emoji").style.display = "block";
     document.getElementById("local").style.display = "block";
-
   } else {
     user_data.handState = false;
     raisingHand = false
     document.getElementById("local-hand").innerHTML = "Need to ask a question? Click to raise your hand";
     document.getElementById("hand-emoji").style.display = "none";
     document.getElementById("local").style.display = "none";
-
   } 
 
   update = {
@@ -74,36 +69,23 @@ function toggleHand(){
 }
 
 
-
+// Meeting event - joined-meeting: https://docs.daily.co/reference/daily-js/events/meeting-events
 async function joinedCall(e){
   // Display Raise Hand Button when you arrive
   document.getElementById("raise_hand_container").style.display = "block";
   document.getElementById("join_call_button").style.display = "none";
 
-  // console.log(e)
-
-  // Call createParticipantDiv and carrying over userId and username
+  // Call createParticipantDiv and carrying over userId and username from event
   createParticipantDiv(e.participants.local.user_id, e.participants.local.user_name)
-  
-  // // Setting user_data info as local joins
-  // user_data.user_id = e.participants.local.user_id
-  // user_data.username = e.participants.local.user_name
 }
 
+// Participant-joined Event: https://docs.daily.co/reference/daily-js/events/participant-events
 async function participantJoined(e){
-  console.log("someone joined", e)
+  // console.log("someone joined", e)
   createParticipantDiv(e.participant.user_id, e.participant.user_name)
-
-  //  // Setting user_data info as participant joins
-  //  user_data.user_id = e.participant.user_id
-  //  user_data.username = e.participant.user_name
-
 }
 
 function createParticipantDiv(id, username){
-  console.log(id)
-  console.log(username)
-
    // Create div for local user
    let dailyUser = document.createElement('div')
    
@@ -134,25 +116,15 @@ function createParticipantDiv(id, username){
                    </div>
                  `
    addParticpipant.innerHTML += dailyUser
-
-  //  user_data = {
-  //     user_id: id,
-  //     username: username,
-  //     handState: {},
-  //   }
-  //  callFrame.sendAppMessage(user_data, "*")
 }
 
-
+// Meeting Event: "left-meeting" https://docs.daily.co/reference/daily-js/events/meeting-events#left-meeting
 function leftCall(e){
-  console.log("I left")
-  console.log(e)
- 
   location.reload();
 }
 
+// Participant-left event: https://docs.daily.co/reference/daily-js/events/participant-events
 function participantLeft(e){
-  console.log("Someone left")
   let participantSessionId = e.participant.session_id
   document.getElementById(participantSessionId).remove()
   callFrame.sendAppMessage()

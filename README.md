@@ -2,37 +2,78 @@
 ## Raise your hand
 This sample work includes sample code and a piece of content about implementing a `Raise your hand` feature during a video call in the form of a developer tutorial on Daily.co's blog: https://www.daily.co/blog/
 
-### Set up your environment
+## Set up your environment
 You can create your own video chat interface using the Daily-js front-end library and three separate files: JavaScript, HTML, and CSS!
 
 The Daily JavaScript library gives you several options for adding video calls to your web app. There's so many possibilities, but we'll focus on the "Raise your hand" feature. 
 
-Let's go step by step over what you'll need and why. We're going to keep all our files on the same level (aka folder).
+Let's go step by step over what you'll need and why. We're going to keep all our files on the same level (aka folder). We'll be using three basic pages: HTML, CSS, and JavaScript (including Daily's JS library).
 
-#### Set up HTML
-* Basic HTML page
-In the directory(folder) you're working in, create a new file `index.html`
+<img src="./Assets/html-css-js.gif" alt="Image of a lego figure in three different forms representing HTML, CSS, and JavaScript">
+
+<hr>
+
+### Set up HTML
+- [ ] Basic HTML page
 
 Set up the basic HTML DOCTYPE structure (https://www.w3schools.com/html/)
+Create something like `index.html`, or name it anything you'll remember as long as you save it as `.html`
+In a basic template, you can change the title in the `<head>` and add more information, but with that basic HTML structure. 
 
-And you can change the title in the head and add more information, but with that basic HTML structure, you have your html page set up!
+You have your basic html page set up! 
 
-Now continue to creating a Javascript file
 
-#### Set up JavaScript
-Create a basic JavaScript file
-In the directory(folder) you're working in, create a new file `script.js`
+```
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Title of the document</title>
+  </head>
 
-And you're done! We'll be adding more here later because this is where all our code will go.
+  <body>
+  
+  </body>
 
-Now link up these two new files!
+</html>
+```
+<hr>
+
+### Set up JavaScript
+- [ ] Basic JavaScript file
+
+Create something like `script.js`, or name it anything you'll remember as long as you save it as `.js`
+
+And you're done with basic set up! Yes, it's OK if it's empty at the moment. This is were we'll be adding our events and logic for the Daily JS library and user interactions/actions. 
+<hr>
 
 #### Set up CSS
 
-#### Connect them
-From the <head> in your HTML, you'll need to connect your Javascript with a tag:
+- [ ] Basic CSS file
+
+Create something like `style.css`, or name it anything you'll remember as long as you save it as `.css`
+
+And you're done with basic set up! Yes, it's OK if it's empty at the moment. This is were we'll be adding classes, ids, and other code for the site's appearance.
+
+<hr>
+
+#### Connect them!
+Just because the files are in the directory (aka folder), doesn't mean they realize the others exist. So we'll connect them all in our HTML file.
+
+In the <head> of your HTML file, you'll need to connect your Javascript and CSS with the following tags:
+
+- [ ] Connect JS file
+```
+<script type='text/javascript' src='./script.js'></script>
+```
+
+- [ ] Connect CSS file
+```
+<link rel="stylesheet" href="style.css">
+```
+
+With that connect, let's start adding our Daily JS library functions.
+<hr>
 <br>
-`<script type='text/javascript' src='./script.js'></script>`
 
 ### Before integrating Daily 
 This part is a couple of housekeeping steps:
