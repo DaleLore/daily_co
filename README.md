@@ -134,7 +134,7 @@ callFrame = window.DailyIframe.createFrame({
 # Daily.co API Events 
 In the Daily.co docs, these are specific events we can listen for and react to with the JS functions (or callbacks): https://docs.daily.co/reference/daily-js/events. We're going to code this raise hand feature by first creating the local participant and then other participants. 
 
-### Local Participant
+## Local Participant
 For a local participant, we want to know when they join, when they clicked on a button to raise their hand, and when they leave. We're going to use daily-js video call events for our local participant and create a customized JavaScript event listener for that raising hand feature.
 
 ### Daily.co API Events
@@ -157,18 +157,29 @@ For a local participant, we want to know when they join, when they clicked on a 
   function leftCall(){
     
   }
-
   ```
 
+![Daily.co API Events](./Assets/screenshot-html-01.png)
+##### Refer to `dailyco_events.html` in the <b>Steps</b> folder to see code at this point.
 
-<img src="./Assets/screenshot-dailyvideo-events.png">
+ <hr>
+ <br>
 
-##### My HTML is looking like this.
-
-#### React when a user joins a call
+### React when a user joins a call
 Within the callback function of joinedCall, we're going to evoke another function where we'll create the participant. The `joined-meeting` event gives us important information like user_id and username. You can even check it out in your console with `e.participants.local`
 
+This is also the point where I'll need to start create elements in the `<body>` so I can see what is happening. If I want to see all these new participants joining, I'm going to need to code space in the HTML to accommodate them. I'm going to create a `<div>` element to append all these new participants divs within my HTML. Just above the `<script>` tag.
+
 ```
+<!-- In the body, above the script tags -->
+<div id="participantsList">
+            Participants
+</div>
+```
+
+```
+<!-- in the script tag, JavaScript part -->
+
 async function joinedCall(e){
   createParticipantDiv(e.participants.local.user_id, e.participants.local.user_name)
 }
@@ -205,6 +216,9 @@ function createParticipantDiv(id, username){
    addParticpipant.innerHTML += dailyUser
 }
 ``` 
+
+![Daily.co API Events: HTML and JS](./Assets/screenshot-html-02.png)
+##### Refer to `react_to_local.html` in the <b>Steps</b> folder to see code at this point.
 
 #### Let local participant raise their hand
 
