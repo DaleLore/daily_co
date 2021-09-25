@@ -63,7 +63,7 @@ function toggleHand(e){
   } 
 
   update = {
-    handState = raisingHand
+    handState: raisingHand
   }
   callFrame.sendAppMessage(update, "*");
 }
