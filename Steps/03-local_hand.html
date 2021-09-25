@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- JS  -->
+        <script src="https://unpkg.com/@daily-co/daily-js"></script>
+        <script type='text/javascript' src='script.js'></script>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="style.css">
+
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="participantsList">
+            Participants
+        </div>
+
+        <button
+            id="raise_hand_container"
+            onclick="toggleHand()"
+            >
+            Raise Hand
+        </button>
+
+        <script>
+            callFrame = window.DailyIframe.createFrame({
+                            showLeaveButton: true,
+                        });
+            
+            let raisingHand
+
+            callFrame.join({ url: 'https://dalelore.daily.co/new-prebuilt-test' });
+
+            callFrame
+                .on("joined-meeting", joinedCall)
+                .on("left-meeting", leftCall)
+                .on('app-message', (event) => sendingUpdates(event) )
+            
+            
+            function joinedCall(e){
+                console.log("joined")
+                createParticipantDiv(e.participants.local.user_id, e.participants.local.user_name)
+            }  
+
+            function createParticipantDiv(id, username){
+                let dailyUser = document.createElement('div')
+                
+                dailyUser = `
+                                <div id=${id} class="participantBlock">
+                                    
+                                    <div class="participantBlock-item" id="usernameDiv"><h5>${username}</h5></div>
+                                
+                                    <img 
+                                        id="${id}-hand"
+                                        src="./Assets/icon-raised-hand.png" 
+                                        class="participantBlock-item"
+                                        class="hand"
+                                        alt="Raised hand" 
+                                        style="display: none"
+                                        height="30px;"
+                                    />
+                                    <img 
+                                        id="local"
+                                        src="./Assets/icon-raised-hand.png" 
+                                        class="participantBlock-item"
+                                        class="hand"
+                                        alt="Raised hand" 
+                                        style="display: none"
+                                        height="30px;"
+                                    />
+                            
+                                </div>
+                                `
+                    let addParticpipant = document.getElementById("participantsList")                                
+                    addParticpipant.innerHTML += dailyUser
+                }
+            
+            function sendingUpdates(message){
+                // console.log(message)
+                // console.log(message.fromId)
+                // console.log(message.data.username)
+                // console.log(message.data.status)
+
+                let id = message.fromId
+                
+                if (message.data.status === true) {
+                    document.getElementById(id + "-hand").style.display = "block";
+                } else if (message.data.status === false){
+                    document.getElementById(id + "-hand").style.display = "none";
+                }
+            }
+
+            function toggleHand(){
+                console.log("I click")
+                let localID = callFrame.participants().local.user_id
+                let localUsername = callFrame.participants().local.user_name
+
+                if (!raisingHand) {
+                    raisingHand = true
+                    document.getElementById("local").style.display = "block";
+                } else {
+                    raisingHand = false
+                    document.getElementById("local").style.display = "none";
+                } 
+
+                update = {
+                    user_id: localID,
+                    status: raisingHand,
+                    username: localUsername,
+                };
+                callFrame.sendAppMessage(update, "*");
+             }
+            
+            function leftCall(){
+                console.log("left")
+            } 
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
