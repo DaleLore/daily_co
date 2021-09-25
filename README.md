@@ -158,8 +158,9 @@ For a local participant, we want to know when they join, when they clicked on a 
     
   }
   ```
-<kbd><img src="./Assets/screenshot-html-01.png">
-##### Refer to `dailyco_events.html` in the <b>Steps</b> folder to see code at this point.
+<kbd>
+<img src="./Assets/screenshot-html-01.png">
+Refer to `dailyco_events.html` in the <b>Steps</b> folder to see code at this point.
 </kbd>
 
  <hr>
@@ -219,7 +220,7 @@ function createParticipantDiv(id, username){
 
 <kbd>
 <img src="./Assets/screenshot-html-02.png">
-##### Refer to `react_to_local.html` in the <b>Steps</b> folder to see code at this point.
+Refer to `react_to_local.html` in the <b>Steps</b> folder to see code at this point.
 </kbd>
 
 
