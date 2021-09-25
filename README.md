@@ -41,7 +41,7 @@ You have your basic html page set up!
 ```
 <hr>
 
-### Optional: Set up JavaScript
+#### Optional: Set up JavaScript
 - [ ] Basic JavaScript file
 
 If you're separating your code based on HTML, JS, or CSS, then you'll also need to create something like `script.js`, or name it anything you'll remember as long as you save it as `.js`
@@ -107,9 +107,9 @@ You can just copy and paste this exact code into the `<head>` of your HTML file.
 <hr>
 
 ## Create the Daily.co video call component 
-There are a couple of ways we can add a frame (i.e. callObject, createframe(), etc), but we're going to embed the code Daily has so kindly shared for a Daily prebuilt video call component. We're already referred to the docs here: https://docs.daily.co/prebuilt#step-by-step-guide-embed-daily-prebuilt
+There are a couple of ways we can add a frame (i.e. callObject, createframe(), etc), but we're going to embed the code Daily has so kindly shared for a prebuilt video call component. We've already referred to the docs here: https://docs.daily.co/prebuilt#step-by-step-guide-embed-daily-prebuilt
 
-The Daily JS library script tag is already added in the `<head>`, so we're going to add the code snippet to the HTML's `<body>` and replacing the `https://your-team.daily.co/hello` in the code snippet with your own room URL.
+The Daily JS library script tag is already added in the `<head>`, so we're going to add the code snippet to the HTML's `<body>` and replacing the `https://your-team.daily.co/hello` in the code snippet with our own room URL.
 
 ```
 <script>
@@ -122,7 +122,7 @@ The Daily JS library script tag is already added in the `<head>`, so we're going
 
 At this point, you can start testing it out! Double click your `index.html` and it'll open up in your web browser and you'll be able to see your own personal video room. Don't worry about how it looks. You can change that with CSS if you want to.
 
-##### Note: You might have noticed that you can't leave the call 😶. You'll need to add some configuration properties to `DailyIframe.createFrame()` to customize how the DailyIframe looks. For the leave call button, just add `showLeaveButton: true,` into the `DailyIframe.createFrame()`. For more information, check out: https://docs.daily.co/reference/daily-js/daily-iframe-class/properties
+##### Note: You might have noticed that you can't leave the call 😶 You'll need to add some configuration properties to `DailyIframe.createFrame()` to customize how the DailyIframe looks. For the leave call button, just add `showLeaveButton: true,` into the `DailyIframe.createFrame()`. For more information, check out: https://docs.daily.co/reference/daily-js/daily-iframe-class/properties
 
 ```
 callFrame = window.DailyIframe.createFrame({
@@ -132,11 +132,12 @@ callFrame = window.DailyIframe.createFrame({
 <hr>
 
 # Daily.co API Events 
-In the Daily.co docs, these are specific events we can listen for and react to with the JS functions (or callbacks): https://docs.daily.co/reference/daily-js/events. We're going to break the participants into local user and other users. 
+In the Daily.co docs, these are specific events we can listen for and react to with the JS functions (or callbacks): https://docs.daily.co/reference/daily-js/events. We're going to code this raise hand feature by first creating the local participant and then other participants. 
 
-### Daily.co API Events: Local Participant
-For a local participant, we want to know when they join, click on a button when they raise their hand, and when they leave. We're going to use daily-js video call events for our local participant and create a customized JavaScript event listener.
+### Local Participant
+For a local participant, we want to know when they join, when they clicked on a button to raise their hand, and when they leave. We're going to use daily-js video call events for our local participant and create a customized JavaScript event listener for that raising hand feature.
 
+### Daily.co API Events
 * `on()`: This is an instance method that we'll add after joining the call and will evoke after callframe. This method will include an eventName as well as a callback. The eventName could be any of the Events listed in the daily-js docs: https://docs.daily.co/reference/daily-js/events. The callbacks are the functions you'll create. 
 
 * `joined-meeting`: This meeting event is when a local participant joins the call. It will return a list of all the participants: https://docs.daily.co/reference/daily-js/events/meeting-events#joined-meeting 
@@ -165,7 +166,48 @@ For a local participant, we want to know when they join, click on a button when 
 ##### My HTML is looking like this.
 
 #### React when a user joins a call
-Within the callback function of joinedCall, we're going to evoke another function where we'll create the participant.
+Within the callback function of joinedCall, we're going to evoke another function where we'll create the participant. The `joined-meeting` event gives us important information like user_id and username. You can even check it out in your console with `e.participants.local`
+
+```
+async function joinedCall(e){
+  createParticipantDiv(e.participants.local.user_id, e.participants.local.user_name)
+}
+
+function createParticipantDiv(id, username){
+  let dailyUser = document.createElement('div')
+   
+   dailyUser = `
+                   <div id=${id} class="participantBlock">
+                    
+                     <div class="participantBlock-item" id="usernameDiv"><h5>${username}</h5></div>
+                 
+                       <img 
+                         id="${id}-hand"
+                         src="./Assets/icon-raised-hand.png" 
+                         class="participantBlock-item"
+                         class="hand"
+                         alt="Raised hand" 
+                         style="display: none"
+                         height="30px;"
+                       />
+                       <img 
+                         id="local"
+                         src="./Assets/icon-raised-hand.png" 
+                         class="participantBlock-item"
+                         class="hand"
+                         alt="Raised hand" 
+                         style="display: none"
+                         height="30px;"
+                       />
+            
+                   </div>
+                 `
+   addParticpipant.innerHTML += dailyUser
+}
+``` 
+
+#### Let local participant raise their hand
+
 
 
 
