@@ -144,22 +144,22 @@ function leftCall(e){
   console.log(e)
  
   let id = callFrame.participants().local.user_id
+  document.getElementById(id).remove()
+  callFrame.sendAppMessage()
+
   document.getElementById("raise_hand_container").style.display = "none";
   document.getElementById("join_call_button").style.display = "block";
-  callFrame.sendAppMessage()
-  document.getElementById(id).remove()
   location.reload();
 }
 
 function participantLeft(e){
   console.log("Someone left")
   let participantSessionId = e.participant.session_id
-  
-  document.getElementById("raise_hand_container").style.display = "none";
-  document.getElementById("join_call_button").style.display = "block";
   document.getElementById(participantSessionId).remove()
   callFrame.sendAppMessage()
 
+  document.getElementById("raise_hand_container").style.display = "none";
+  document.getElementById("join_call_button").style.display = "block";
   location.reload();
 
 }
