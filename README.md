@@ -2,12 +2,14 @@
 ## Raise your hand
 This sample work includes sample code and a piece of content about implementing a `Raise your hand` feature during a video call in the form of a developer tutorial on Daily.co's blog: https://www.daily.co/blog/
 
+
 ## Set up your environment
-You can create your own video chat interface using the Daily-js front-end library and three separate files: JavaScript, HTML, and CSS!
+
+You can create your own video chat interface using the Daily-js front-end library and JavaScript, HTML, and CSS!
 
 The Daily JavaScript library gives you several options for adding video calls to your web app. There's so many possibilities, but we'll focus on the "Raise your hand" feature. 
 
-Let's go step by step over what you'll need and why. We're going to keep all our files on the same level (aka folder). We'll be using three basic pages: HTML, CSS, and JavaScript (including Daily's JS library).
+Let's go step by step over what you'll need and why. We're going to write everything in our HTML file, but you can separate the code based on JS or CSS.
 
 <img src="./Assets/html-css-js.gif" alt="Image of a lego figure in three different forms representing HTML, CSS, and JavaScript">
 
@@ -39,26 +41,23 @@ You have your basic html page set up!
 ```
 <hr>
 
-### Set up JavaScript
+### Optional: Set up JavaScript
 - [ ] Basic JavaScript file
 
-Create something like `script.js`, or name it anything you'll remember as long as you save it as `.js`
+If you're separating your code based on HTML, JS, or CSS, then you'll also need to create something like `script.js`, or name it anything you'll remember as long as you save it as `.js`
 
-And you're done with basic set up! Yes, it's OK if it's empty at the moment. This is were we'll be adding our events and logic for the Daily JS library and user interactions/actions. 
 <hr>
 
-#### Set up CSS
+#### Optional: Set up CSS
 
 - [ ] Basic CSS file
 
-Create something like `style.css`, or name it anything you'll remember as long as you save it as `.css`
-
-And you're done with basic set up! Yes, it's OK if it's empty at the moment. This is were we'll be adding classes, ids, and other code for the site's appearance.
+If you're separating your code based on HTML, JS, or CSS, then you'll also need to create something like `style.css`, or name it anything you'll remember as long as you save it as `.css`
 
 <hr>
 
-#### Connect them!
-Just because the files are in the directory (aka folder), doesn't mean they realize the others exist. So we'll connect them all in our HTML file.
+#### Optional: Connect them!
+If you have three files, just because the files are in the directory (aka folder), doesn't mean they realize the others exist. So we'll connect them all in our HTML file.
 
 In the <head> of your HTML file, you'll need to connect your Javascript and CSS with the following tags:
 
@@ -71,11 +70,6 @@ In the <head> of your HTML file, you'll need to connect your Javascript and CSS 
 ```
 <link rel="stylesheet" href="style.css">
 ```
-
-#### Review: Environment setup
-You should have three files: `index.html`, `script.js`, and `style.css` With that connect, let's start adding our Daily JS library functions.
-
-<img src="./Assets/screenshot-01-setup.png">
 <hr>
 <br>
 
@@ -102,42 +96,77 @@ There are a couple of housekeeping steps:
 
 The easiest way to get started is to load this library from unpkg, and add a couple of lines of code to your web page or app. We're goign to embed a Daily prebuilt into our files. You can refer to the docs where it mentions it: https://docs.daily.co/prebuilt#step-by-step-guide-embed-daily-prebuilt
 
+You can just copy and paste this exact code into the `<head>` of your HTML file.
+
 ```
 <script crossorigin src="https://unpkg.com/@daily-co/daily-js"></script>
 ``` 
 
-You can just copy and paste that exact code into the `<head>` of your HTML file.
-<br>
+<img src="./Assets/screenshot-dailyscript.png">
 
-<img src="./Assets/screenshot-02-dailyscript.png">
 <hr>
 
-## Add UI Elements
-There are a couple of elements needed for this. We'll be building out our User Interface elements in our HTML file first. And then we connect them to JS and CSS so they all communicate with each other.
-
-We'll need:
-- [ ] Daily.co call frame: This is for the video call
-- [ ] Hand Button: This is the feature we're are implementing
-- [ ] Participants: We'll need to know who is who when people start toggling their hands
-
-### Add UI element: Daily.co Frame
+## Create the Daily.co video call component 
 There are a couple of ways we can add a frame (i.e. callObject, createframe(), etc), but we're going to embed the code Daily has so kindly shared for a Daily prebuilt video call component. We're already referred to the docs here: https://docs.daily.co/prebuilt#step-by-step-guide-embed-daily-prebuilt
 
-The Daily JS library script is already added, but we're going to add the code snippet for the video call into the `<body>` of our HTML page.
+The Daily JS library script tag is already added in the `<head>`, so we're going to add the code snippet to the HTML's `<body>` and replacing the `https://your-team.daily.co/hello` in the code snippet with your own room URL.
 
 ```
-  <body>
-    <script>
+<script>
       callFrame = window.DailyIframe.createFrame();
       callFrame.join({ url: 'https://your-team.daily.co/hello' });
-    </script>
-  </body>
+</script>
 ```
 
-My HTML is starting to look like this. I've replaced `https://your-team.daily.co/hello` in the code snippet with my own room URL.
+<img src="./Assets/screenshot-dailyvideo.png">
 
-<img src="./Assets/screenshot-03-dailyvideo.png">
+At this point, you can start testing it out! Double click your `index.html` and it'll open up in your web browser and you'll be able to see your own personal video room. Don't worry about how it looks. You can change that with CSS if you want to.
+
+##### Note: You might have noticed that you can't leave the call 😶. You'll need to add some configuration properties to `DailyIframe.createFrame()` to customize how the DailyIframe looks. For the leave call button, just add `showLeaveButton: true,` into the `DailyIframe.createFrame()`. For more information, check out: https://docs.daily.co/reference/daily-js/daily-iframe-class/properties
+
+```
+callFrame = window.DailyIframe.createFrame({
+  showLeaveButton: true,
+});
+```
+<hr>
+
+# Daily.co API Events 
+In the Daily.co docs, these are specific events we can listen for and react to with the JS functions (or callbacks): https://docs.daily.co/reference/daily-js/events. We're going to break the participants into local user and other users. 
+
+### Daily.co API Events: Local Participant
+For a local participant, we want to know when they join, click on a button when they raise their hand, and when they leave. We're going to use daily-js video call events for our local participant and create a customized JavaScript event listener.
+
+* `on()`: This is an instance method that we'll add after joining the call and will evoke after callframe. This method will include an eventName as well as a callback. The eventName could be any of the Events listed in the daily-js docs: https://docs.daily.co/reference/daily-js/events. The callbacks are the functions you'll create. 
+
+* `joined-meeting`: This meeting event is when a local participant joins the call. It will return a list of all the participants: https://docs.daily.co/reference/daily-js/events/meeting-events#joined-meeting 
+
+* `left-meeting`: This meeting event is when a local participant leaves the call: https://docs.daily.co/reference/daily-js/events/meeting-events#left-meeting
+
+  ```
+  <!-- eventNames -->
+  callFrame.on("joined-meeting", joinedCall)
+  callFrame.on("left-meeting", leftCall)
+
+  <!-- callbacks -->
+  function joinedCall(){
+
+  }
+
+  function leftCall(){
+    
+  }
+
+  ```
 
 
-At this point, you can start testing it out! Double click your `index.html` and it'll open up in your web browser and you'll be able to see your own personal video room. Don't worry about how it looks. That's where CSS and JS come in.
+<img src="./Assets/screenshot-dailyvideo-events.png">
+
+##### My HTML is looking like this.
+
+#### React when a user joins a call
+Within the callback function of joinedCall, we're going to evoke another function where we'll create the participant.
+
+
+
 
