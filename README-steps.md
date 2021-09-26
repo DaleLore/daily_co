@@ -4,7 +4,7 @@ You can create your own video chat interface using the Daily-js front-end librar
 
 The Daily JavaScript library gives you several options for adding video calls to your web app. There's so many possibilities, but we'll focus on the "Raise your hand" feature. 
 
-Let's go step by step over what you'll need and why. We're going to write everything in our HTML file, but you can separate the code based on JS or CSS.
+Let's go step by step over what you'll need and why. We're going to write everything in our HTML file, but you can separate the code based on JS or CSS. The CSS is not including in this breakdown so you're free to choose your own style and look!
 
 <img src="./Assets/html-css-js.gif" alt="Image of a lego figure in three different forms representing HTML, CSS, and JavaScript">
 
