@@ -8,10 +8,11 @@ This sample work includes the code for a custom Daily.co video frame embedded in
 
 * If you want to fork and clone this repository, go for it! Just be sure to CC-Share Alike so others can build and learn from your code too! 
 
-<img src="./Assets/final-demo.png">
+<img src="./Assets/final_demo.png">
 
 # What you'll need
 - [ ] [Daily.co account](https://dashboard.daily.co/login)
 - [ ] [Daily JS Reference Docs](https://docs.daily.co/reference/daily-js)
 - [ ] Code Editor (I used VSCode, but there's plenty of other code editors)
+
 

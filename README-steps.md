@@ -224,7 +224,6 @@ function createParticipantDiv(id, username){
 Refer to `02-react_to_local_joining.html` in the <b>Steps</b> folder to see code at this point.
 </kbd>
 
-
 #### Let local participant raise their hand
 Here is where we start implementing the `Raise Hand` feature. We're going to create a button for our `Raise Hand` feature, a variable for the handState, as well as custom JavaScript event listeners called `toggleHand()` and `sendingUpdates()`, and we'll use a Daily.co Instance method: `sendAppMessage()`. 
 
@@ -315,4 +314,5 @@ You have the basic structure!
 
 You might have notice a couple of things like it's barebones with CSS. That's OK! You can change how it looks by adding to the `style.css` we created in the beginning. 
 
-There's a couple of other examples of how one can code this feature. Beauty (and curse) of JavaScript is that there a million ways! This is just one way. The important part is understanding what parts are needed to create this video call. And luckily Daily.co helps out with the bulk of this code! Thanks Daily.co
+There's a couple of other examples of how one can code this feature. Beauty (and curse) of JavaScript is that there a million ways. This is just one way. The important part is understanding what parts are needed to create this video call. And luckily Daily.co helps out with the bulk of this code! Thanks Daily.co
+

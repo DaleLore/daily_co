@@ -27,11 +27,6 @@ async function run() {
 }
 
 function sendingUpdates(message){
-  // console.log(message)
-  // console.log(message.fromId)
-  // console.log(message.data.username)
-  // console.log(message.data.status)
-
   let id = message.fromId
   
   if (message.data.status === true) {
