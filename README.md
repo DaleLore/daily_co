@@ -160,16 +160,20 @@ For a local participant, we want to know when they join, when they clicked on a 
   ```
 <kbd>
 <img src="./Assets/screenshot-html-01.png">
-Refer to `dailyco_events.html` in the <b>Steps</b> folder to see code at this point.
+Refer to `01-dailyco_events.html` in the <b>Steps</b> folder to see code at this point.
 </kbd>
 
  <hr>
  <br>
 
 ### React when a user joins a call
-Within the callback function of joinedCall, we're going to evoke another function where we'll create the participant. The `joined-meeting` event gives us important information like user_id and username. You can even check it out in your console with `e.participants.local`
+Within the callback function of `joinedCall()` with the `e` (event) being referred to. 
 
-This is also the point where I'll need to start create elements in the `<body>` so I can see what is happening. If I want to see all these new participants joining, I'm going to need to code space in the HTML to accommodate them. I'm going to create a `<div>` element to append all these new participants divs within my HTML. Just above the `<script>` tag.
+Then once "inside" that function, we're going to evoke another function where we'll create the participant. The `joined-meeting` event gives us important information like user_id and username. You can even check it out in your console with `e.participants.local`
+
+This is also the point where I'll need to start create elements in the `<body>` so I can see what is happening. We'll use a custom JavaScript funciont called `createParticipantDiv()` that'll create a `<div>` with the participant's information. We're using `<div>` elements so we can append, select, and eventually remove them from our list.
+
+If I want to see all these new participants joining, I'm going to need to code space in the HTML to accommodate them. I'm going to create a `<div>` element to append all these new participants divs within my HTML. Just above the `<script>` tag.
 
 ```
 <!-- HTML: In the body, above the script tags -->
@@ -222,7 +226,7 @@ function createParticipantDiv(id, username){
 
 <kbd>
 <img src="./Assets/screenshot-html-02.png">
-Refer to `react_to_local.html` in the <b>Steps</b> folder to see code at this point.
+Refer to `02-react_to_local_joining.html` in the <b>Steps</b> folder to see code at this point.
 </kbd>
 
 
@@ -260,8 +264,10 @@ callFrame.sendAppMessage(update, "*");
 Refer to `03-local_hand.html` in the <b>Steps</b> folder to see code at this point.
 </kbd>
 
+<br>
+
 #### React when a user leaves a call
-We'll need to add another `.on()` event that will evoke when the local participant leaves. And as they leave, we'll just refresh their page so everything gets cleaned. Refer to the docs, Meeting Event: "left-meeting" https://docs.daily.co/reference/daily-js/events/meeting-events#left-meeting
+We'll need to add another `.on()` event that will evoke when the local participant leaves. And as they leave, we'll just refresh their page so everything gets cleaned. Refer to `04-react_to_local_leaving.html` in <b>Steps</b>. 
 
 ```
 <!-- .on() events -->
@@ -274,4 +280,32 @@ callFrame
   }
 ```
 
+## Other Participants
+For other participants, we want to know when they join, when they clicked on a button to raise their hand, and when they leave.
 
+### Participant Events
+* `participant-joined`: This meeting event is when a local participant joins the call. It will return a list of all the participants: https://docs.daily.co/reference/daily-js/events/meeting-events#joined-meeting 
+
+* `participant-left`: This meeting event is when a local participant leaves the call: https://docs.daily.co/reference/daily-js/events/meeting-events#left-meeting
+
+
+
+### React when participant joins
+We'll use similar logic to when local joined. This function can be called `participantJoined()` with the `e` being referred to. We'll evoke the `createParticipantDiv()` function that'll create the new participant and add to our list. This new participant will have the same features and actions as a local, but with their unique information. 
+
+```
+function participantJoined(e){
+  createParticipantDiv(e.participant.user_id, e.participant.user_name)
+}
+```
+
+### React when participant leaves
+When a participant (that isn't local) leaves, we need to remove their name and reset. 
+
+```
+function participantLeft(e){
+  let participantSessionId = e.participant.session_id
+  document.getElementById(participantSessionId).remove()
+  callFrame.sendAppMessage()
+}
+```
