@@ -4,7 +4,7 @@ You can create your own video chat interface using the Daily-js front-end librar
 
 The Daily JavaScript library gives you several options for adding video calls to your web app. There's so many possibilities, but we'll focus on the "Raise your hand" feature. 
 
-Let's go step by step over what you'll need and why. We're going to write everything in our HTML file, but you can separate the code based on JS or CSS. The CSS is not including in this breakdown so you're free to choose your own style and look!
+Let's go step by step over what you'll need and why. We're going to write everything in our HTML file, but you can separate the code based on JS or CSS. The CSS is not included in this breakdown so you're free to choose your own style and look!
 
 <img src="./Assets/html-css-js.gif" alt="Image of a lego figure in three different forms representing HTML, CSS, and JavaScript">
 
@@ -89,7 +89,7 @@ There are a couple of housekeeping steps:
 # How to set up Daily.co video calls
 ## Connect to Daily.co by loading the library in a script tag
 
-The easiest way to get started is to load this library from unpkg, and add a couple of lines of code to your web page or app. We're goign to embed a Daily prebuilt into our files. You can refer to the docs where it mentions it: https://docs.daily.co/prebuilt#step-by-step-guide-embed-daily-prebuilt
+The easiest way to get started is to load this library from unpkg, and add a couple of lines of code to your web page or app. We're going to embed a Daily prebuilt into our files. You can refer to the docs where it mentions it: https://docs.daily.co/prebuilt#step-by-step-guide-embed-daily-prebuilt
 
 You can just copy and paste this exact code into the `<head>` of your HTML file.
 
@@ -130,7 +130,7 @@ callFrame = window.DailyIframe.createFrame({
 In the Daily.co docs, these are specific events we can listen for and react to with the JS functions (or callbacks): https://docs.daily.co/reference/daily-js/events. We're going to code this raise hand feature by first creating the local participant and then other participants. 
 
 ## Local Participant
-For a local participant, we want to know when they join, when they clicked on a button to raise their hand, and when they leave. We're going to use daily-js video call events for our local participant and create a customized JavaScript event listener for that raising hand feature.
+For a local participant, we want to know when they join, when they click on a button to raise their hand, and when they leave. We're going to use daily-js video call events for our local participant and create a customized JavaScript event listener for that raising hand feature.
 
 ### Local Participant Events
 * `on()`: This is an instance method that we'll add after joining the call and will evoke after callframe. This method will include an eventName as well as a callback. The eventName could be any of the Events listed in the daily-js docs: https://docs.daily.co/reference/daily-js/events. The callbacks are the functions you'll create. 
@@ -166,9 +166,9 @@ Within the callback function of `joinedCall()` with the `e` (event) being referr
 
 Then once "inside" that function, we're going to evoke another function where we'll create the participant. The `joined-meeting` event gives us important information like user_id and username. You can even check it out in your console with `e.participants.local`
 
-This is also the point where I'll need to start create elements in the `<body>` so I can see what is happening. We'll use a custom JavaScript funciont called `createParticipantDiv()` that'll create a `<div>` with the participant's information. We're using `<div>` elements so we can append, select, and eventually remove them from our list.
+This is also the point where I'll need to start creating elements in the `<body>` so I can see what is happening. We'll use a custom JavaScript function called `createParticipantDiv()` that'll create a `<div>` with the participant's information. We're using `<div>` elements so we can append, select, and eventually remove them from our list.
 
-If I want to see all these new participants joining, I'm going to need to code space in the HTML to accommodate them. I'm going to create a `<div>` element to append all these new participants divs within my HTML. Just above the `<script>` tag.
+If I want to see all these new participants joining, I'm going to need to code space in the HTML to accommodate them. I'm going to create a `<div>` element to append all these new participant divs within my HTML. Just above the `<script>` tag.
 
 ```
 <!-- HTML: In the body, above the script tags -->
@@ -240,7 +240,7 @@ Here is where we start implementing the `Raise Hand` feature. We're going to cre
   Raise Hand
 </button>
 ```
-- [ ] For `toggleHand()`, we're going to do an if/else statement based on whether or not the raisingHand is true or false. I've created variables that refer to the local participant informatino such as user_id and username.
+- [ ] For `toggleHand()`, we're going to do an if/else statement based on whether or not the raisingHand is true or false. I've created variables that refer to the local participant information such as user_id and username.
 
   * If `!raisingHand` (not raisingHand), we'll make `raisingHand = true` when I click on the button and display our hand. Else, `raisingHand = false` when I last clicked and we'll hide the hand. I'll need to add some styling to my elements now (style.display="none" and style.display="block")
   * Package that information in a hash where we'll have information referring to the person clicking such as ID, username, and now our raisingHand status.
@@ -270,10 +270,10 @@ We'll need to add another `.on()` event that will evoke when the local participa
 ```
 
 ## Other Participants
-For other participants, we want to know when they join, when they clicked on a button to raise their hand, and when they leave.
+For other participants, we want to know when they join, when they click on a button to raise their hand, and when they leave.
 
 ### Participant Events
-* `on()`: We'll still be using this instance method for other participants. Rememer this method will include an eventName as well as a callback. The eventName could be any of the Events listed in the daily-js docs: https://docs.daily.co/reference/daily-js/events. The callbacks are the functions you'll create. 
+* `on()`: We'll still be using this instance method for other participants. Remember this method will include an eventName as well as a callback. The eventName could be any of the Events listed in the daily-js docs: https://docs.daily.co/reference/daily-js/events. The callbacks are the functions you'll create. 
 
 * `participant-joined`: This meeting event is when a local participant joins the call. It will return a list of all the participants: https://docs.daily.co/reference/daily-js/events/meeting-events#joined-meeting 
 
@@ -312,7 +312,7 @@ function participantLeft(e){
 # Ya done!
 You have the basic structure! 
 
-You might have notice a couple of things like it's barebones with CSS. That's OK! You can change how it looks by adding to the `style.css` we created in the beginning. 
+You might have noticed a couple of things like it's barebones with CSS. That's OK! You can change how it looks by adding to the `style.css` we created in the beginning. 
 
-There's a couple of other examples of how one can code this feature. Beauty (and curse) of JavaScript is that there a million ways. This is just one way. The important part is understanding what parts are needed to create this video call. And luckily Daily.co helps out with the bulk of this code! Thanks Daily.co
+There's a couple of other examples of how one can code this feature. Beauty (and curse) of JavaScript is that there are a million ways. This is just one way. The important part is understanding what parts are needed to create this video call. And luckily Daily.co helps out with the bulk of this code! Thanks Daily.co
 

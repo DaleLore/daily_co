@@ -2,7 +2,7 @@
 ## Raise your hand
 This sample work includes the code for a custom Daily.co video frame embedded in a website, complete with a `Raise your hand` feature. 
 
-* This project was written solely in HTML, JS, and CSS. You can test out with this demo at: https://dalelore.github.io/daily_co/
+* This project was written solely in HTML, JS, and CSS. You can test it out here: https://dalelore.github.io/daily_co/
 
 * To build your own, here's a [step-by-step README](https://github.com/DaleLore/daily_co/blob/main/README-steps.md) that breaks down the logic and features.
 
